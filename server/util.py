@@ -1,7 +1,5 @@
-import json
 import pickle
 import numpy as np
-import pandas as pd
 
 __locations = None
 __data_columns = None
@@ -18,7 +16,6 @@ def get_estimated_price(location,sqft,bhk,bath):
     x[2] = bath
     if loc_index >= 0:
         x[loc_index] = 1
-    return __model.predict([x])
 
 def get_location_names():
     with open('server/locations.csv', 'r') as f:
@@ -37,6 +34,12 @@ def load_saved_artifacts():
     with open("./artifacts/banglore_home_prices_model.pickle", 'rb') as f:
         __model = pickle.load(f)
     print("loading saved artifacts...done")
+
+def get_location_names():
+    return __locations
+
+def get_data_columns():
+    return __data_columns
 
 if __name__ == '__main__':
     load_saved_artifacts()
